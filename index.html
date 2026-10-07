@@ -3530,7 +3530,7 @@ body.pg-web #leader,body.pg-web #medal0{display:none!important}
 </button>
 
 
-<div id="setting-overlay" class="setting-overlay hidden">
+<div id="setting-overlay" class="setting-overlay hidden" inert>
     <div id="setting-back" onclick="exit0()"></div>
 
     <b id="resolution">RESOLUTION</b>
@@ -24619,7 +24619,7 @@ window.PG = (() => {
   const local = (k,e) => ko()?k:e;
   const translation = (index,fallback) => { try{return textdic[index][langset[langnum]]||fallback;}catch{return fallback;} };
   function toast(message){const el=$('pg-toast');el.textContent=message;el.classList.add('pg-visible');clearTimeout(state.toastTimer);state.toastTimer=setTimeout(()=>el.classList.remove('pg-visible'),2800);}
-  function syncModal(){state.modal=['setting-overlay','desc','lang-back','credit-info','yesno','yesno2'].some(id=>{const el=$(id);if(!el||el.classList.contains('hidden'))return false;const css=getComputedStyle(el);return css.display!=='none'&&css.visibility!=='hidden'&&Number(css.opacity)!==0;})||$('table').style.display==='block';}
+  function syncModal(){const settings=$('setting-overlay');settings.inert=settings.classList.contains('hidden')||!settings.classList.contains('show');state.modal=['setting-overlay','desc','lang-back','credit-info','yesno','yesno2'].some(id=>{const el=$(id);if(!el||el.classList.contains('hidden'))return false;const css=getComputedStyle(el);return css.display!=='none'&&css.visibility!=='hidden'&&Number(css.opacity)!==0;})||$('table').style.display==='block';}
   function isPaused(){return document.hidden||(typeof 인게임!=='undefined'&&인게임&&state.modal);}
   function resumeAudio(){try{const ctx=THREE.AudioContext.getContext();if(ctx.state==='suspended')ctx.resume().catch(()=>{});}catch{}}
   function playSound(n){if(!효과음)return;const audio=soundic[mdex[n-1]];if(!audio?.buffer)return;try{if(audio.isPlaying)audio.stop();audio.play();}catch{}}
