@@ -2619,7 +2619,7 @@
             width: 100%;
             height: 100vh;
             background-color: rgba(100, 150, 150, 0.8);
-            z-index: 2;
+            z-index: 3;
         }
 
         .setting-grid {
@@ -3265,7 +3265,6 @@ body{font-family:mono,ns,system-ui,sans-serif}
 button{touch-action:manipulation;cursor:pointer}
 button:focus-visible,[tabindex]:focus-visible{outline:3px solid #ec9465;outline-offset:4px}
 canvas{touch-action:none}
-#pg-game-canvas{position:fixed!important;inset:0!important;width:100%!important;height:100%!important;margin:0!important;padding:0!important;border:0!important;display:block;outline:none;z-index:0}
 #intro{width:100%;height:100vh;height:100dvh;left:0!important;right:0;margin:0;background:#edf6ef;z-index:10;overflow:hidden;transition:opacity .2s ease}
 #intro>:not(#pg-home){display:none!important}
 body.pg-home #intro{display:block!important;top:0!important;opacity:1!important;pointer-events:auto!important;visibility:visible!important}
@@ -3306,25 +3305,23 @@ body.pg-playing #intro{opacity:0!important;pointer-events:none!important;visibil
 #pg-home .pg-secondary-actions button{font-size:13px;min-height:34px;border-radius:8px;padding:5px}.pg-home-hint{font-size:12px;color:var(--pg-muted);line-height:1.65;text-align:center;margin:8px 0 0}
 .pg-footer{width:100%;max-width:1080px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-shrink:0;color:var(--pg-muted)}.pg-footer>span{font:9px ns,system-ui,sans-serif;letter-spacing:1.2px}#pg-home #pg-credits{font-size:11px;min-height:28px}
 body.pg-home>#left0,body.pg-home>#center0,body.pg-home>#right0,body.pg-home>#fps,body.pg-home>#top,body.pg-home>#topp{visibility:hidden}
-body.pg-playing>#left0,body.pg-playing>#center0{position:fixed;top:calc(14px + var(--pg-safe-top))!important;width:42px!important;height:42px!important;min-width:0;border:1px solid #c0dcd7;border-radius:12px!important;background:#e5ebe4ef!important;box-shadow:0 3px 0 #acd0c8;z-index:12;padding:9px;display:flex;align-items:center;justify-content:center}
+body.pg-playing>#left0,body.pg-playing>#center0{position:fixed;top:calc(14px + var(--pg-safe-top))!important;width:42px!important;height:42px!important;min-width:0;border:1px solid #c0dcd7;border-radius:12px!important;background:#f8fcf4ef!important;box-shadow:0 3px 0 #acd0c8;z-index:12;padding:9px;display:flex;align-items:center;justify-content:center}
 body.pg-playing>#left0{left:14px!important;right:auto!important}body.pg-playing>#center0{left:66px!important;right:auto!important}
 body.pg-playing>#left0 img,body.pg-playing>#center0 img{width:23px!important;height:23px!important;filter:brightness(.35) sepia(.5) hue-rotate(105deg)}
-body.pg-playing>#right0{position:fixed;top:calc(12px + var(--pg-safe-top))!important;right:14px!important;left:auto!important;width:auto!important;min-width:110px;height:56px!important;border:1px solid #c0dcd7;border-radius:14px!important;background:#e5ebe4ef!important;box-shadow:0 3px 0 #acd0c8;color:var(--pg-ink)!important;font-family:mono,ns,sans-serif!important;font-size:25px!important;line-height:1;padding:18px 17px 4px;z-index:12;transition:color .12s}
+body.pg-playing>#right0{position:fixed;top:calc(12px + var(--pg-safe-top))!important;right:14px!important;left:auto!important;width:auto!important;min-width:110px;height:56px!important;border:1px solid #c0dcd7;border-radius:14px!important;background:#f8fcf4ef!important;box-shadow:0 3px 0 #acd0c8;color:var(--pg-ink)!important;font-family:mono,ns,sans-serif!important;font-size:25px!important;line-height:1;padding:18px 17px 4px;z-index:12;transition:color .12s}
 body.pg-playing>#right0:before{content:attr(data-label);position:absolute;top:7px;left:0;right:0;font:9px ns,sans-serif;letter-spacing:1.5px;color:var(--pg-muted)}
 body.pg-playing>#right0.pg-score-pop{animation:pg-score-pop .2s ease-out}
 body.pg-playing>#fps{position:fixed;top:calc(68px + var(--pg-safe-top))!important;right:18px!important;left:auto!important;width:auto!important;color:var(--pg-muted)!important;font-size:12px!important;z-index:12}
-#pg-next{position:fixed;top:calc(75px + var(--pg-safe-top));left:14px;z-index:11;display:none;align-items:center;gap:8px;background:#e5ebe3df;border:1px solid #c0dcd7;border-radius:12px;padding:5px 10px;pointer-events:none;color:var(--pg-muted);font-size:11px}body.pg-playing #pg-next{display:flex}#pg-next img{width:44px;height:44px;object-fit:contain}
-body.pg-playing>#topp{top:max(calc(104px + var(--pg-safe-top)),10vh)!important}
+#pg-next{position:fixed;top:calc(75px + var(--pg-safe-top));left:14px;z-index:11;display:none;align-items:center;gap:8px;background:#f7fbf1df;border:1px solid #c0dcd7;border-radius:12px;padding:5px 10px;pointer-events:none;color:var(--pg-muted);font-size:11px}body.pg-playing #pg-next{display:flex}#pg-next img{width:31px;height:31px;object-fit:contain}
 #top{z-index:13!important;background:transparent!important;border:0!important;padding:0!important}
-#top .cell{border:1px solid #adcfc6!important;border-radius:14px!important;background:#dde3dce8!important;box-shadow:0 3px 0 #abcabf;transition:background .15s,box-shadow .15s;overflow:hidden;cursor:pointer;touch-action:none;min-width:44px;min-height:44px}
+#top .cell{border:1px solid #adcfc6!important;border-radius:14px!important;background:#f7fbf1e8!important;box-shadow:0 3px 0 #abcabf;transition:background .15s,box-shadow .15s;overflow:hidden;cursor:pointer;touch-action:none;min-width:44px;min-height:44px}
 #top .cell img{object-fit:contain;max-width:75%;max-height:64%}#top .cell>div{font-family:mono,ns,sans-serif!important;color:var(--pg-ink)!important;font-size:14px!important;line-height:1}
-#top .cell.pg-item-empty{opacity:.5}#top .cell.pg-item-selected{background:#d6e5d6!important;border-color:#5a9b79!important;box-shadow:0 3px 0 #659d7a,0 0 0 3px #8bcca280}
+#top .cell.pg-item-empty{opacity:.5}#top .cell.pg-item-selected{background:#d5efd4!important;border-color:#5a9b79!important;box-shadow:0 3px 0 #659d7a,0 0 0 3px #8bcca280}
 #pg-hint{position:fixed;bottom:calc(14px + var(--pg-safe-bottom));left:50%;transform:translateX(-50%);max-width:calc(100% - 32px);padding:8px 15px;z-index:14;border-radius:30px;color:#eaf8ef;background:#1c4650df;font-size:12px;line-height:1.4;pointer-events:none;white-space:normal;text-align:center;transition:opacity .25s}
 body.pg-home #pg-hint{display:none}
 #pg-toast{position:fixed;left:50%;bottom:calc(26px + var(--pg-safe-bottom));transform:translate(-50%,15px);z-index:100;max-width:calc(100% - 36px);padding:13px 20px;border-radius:14px;background:#193f4bf2;color:#fffdf4;font:14px/1.5 mono,ns,sans-serif;box-shadow:0 8px 25px #122f4226;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;text-align:center}#pg-toast.pg-visible{opacity:1;transform:translate(-50%,0)}
 #setting-overlay{position:fixed!important;inset:0!important;width:100%!important;height:100%!important;z-index:30!important;background:#163a46d9!important;backdrop-filter:blur(9px);overflow-y:auto;color:#fffdf4}
-#setting-back{position:fixed!important;inset:0!important;width:100%!important;height:100%!important;background:transparent!important;z-index:0!important}
-#setting-overlay>:not(#setting-back){z-index:1}
+#setting-back{position:fixed!important;inset:0!important;width:100%!important;height:100%!important;background:transparent!important}
 #resolution{position:relative!important;display:block;top:auto!important;left:auto!important;margin:calc(52px + var(--pg-safe-top)) auto 10px;width:auto!important;font:15px mono,ns,sans-serif!important;letter-spacing:2px}
 .option-RL2{position:relative!important;top:auto!important;left:auto!important;right:auto!important;transform:none!important;width:200px!important;height:42px!important;margin:0 auto 24px;display:flex!important;align-items:center;justify-content:center;gap:16px}
 .option-RL2 button{position:relative!important;inset:auto!important;width:36px!important;height:36px!important;background-size:contain!important;background-repeat:no-repeat!important;border:0!important}.option-RL2 #skin-middle2{position:relative!important;inset:auto!important;width:56px!important;font-size:24px!important}
@@ -3339,10 +3336,6 @@ body.pg-home #pg-hint{display:none}
 #table{position:fixed!important;z-index:35!important;left:50%!important;top:calc(74px + var(--pg-safe-top))!important;transform:translateX(-50%);width:min(620px,calc(100% - 28px))!important;max-height:calc(100dvh - 95px - var(--pg-safe-bottom));overflow-y:auto;background:#f4f8ef!important;color:var(--pg-ink);border:1px solid #bad1c6;border-radius:18px!important;box-shadow:0 18px 70px #1b434b44;padding:12px!important;box-sizing:border-box}
 #table .filter{background:#d7e9da!important;box-shadow:none!important;border:1px solid #b4cebd;border-radius:10px!important}#scoreTable{width:100%!important;background:transparent!important;box-shadow:none!important;color:var(--pg-ink)!important;font-size:16px}#scoreTable td{padding:10px!important}#fback{position:fixed!important;top:20px!important;left:18px!important;width:42px!important;height:42px!important;z-index:36!important;background:var(--pg-sea)!important;border:0!important;border-radius:12px;padding:10px}#fback img{width:22px!important;height:22px!important}
 #gameover-overlay{z-index:25!important;background:#193f4bca!important;backdrop-filter:blur(6px)}.gameoverbt{border-radius:15px!important;background:#e4eee0!important;box-shadow:0 4px 0 #abc8b5!important;border:1px solid #9cbaa7!important}.gameoverbt img{filter:brightness(.35) sepia(.5) hue-rotate(105deg)}#yesno,#yesno2{z-index:42!important;background:#f6f9ee!important;border:1px solid #bdd3c3;border-radius:20px!important;color:var(--pg-ink)!important;box-shadow:0 20px 65px #193f4b44}#y0,#y1,#y2,#y3{color:var(--pg-ink)!important}.yesno-container button{border:1px solid #aecdbb!important;border-radius:13px!important;background:#d7edda!important;color:var(--pg-ink)!important;box-shadow:0 3px 0 #9fbeab}
-/* Closed overlays must leave layout and hit testing. Legacy flex rules override .hidden. */
-#setting-overlay:not(.show){display:none!important;visibility:hidden!important;pointer-events:none!important}
-#setting-overlay.hidden,#gameover-overlay.hidden,#desc.hidden,#lang-back.hidden,#credit-info.hidden,#yesno.hidden,#yesno2.hidden{display:none!important;visibility:hidden!important;pointer-events:none!important}
-#setting-overlay.fade:not(.show),#gameover-overlay.fade:not(.show),#desc.fade:not(.show),#lang-back.fade:not(.show),#credit-info.fade:not(.show),#yesno.fade:not(.show),#yesno2.fade:not(.show){pointer-events:none!important}
 body.pg-web #leader,body.pg-web #medal0{display:none!important}
 @keyframes pg-boat-bob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-7px) rotate(1deg)}}
 @keyframes pg-float{0%,100%{translate:0 0}50%{translate:0 -9px}}
@@ -3530,7 +3523,7 @@ body.pg-web #leader,body.pg-web #medal0{display:none!important}
 </button>
 
 
-<div id="setting-overlay" class="setting-overlay hidden" inert>
+<div id="setting-overlay" class="setting-overlay hidden">
     <div id="setting-back" onclick="exit0()"></div>
 
     <b id="resolution">RESOLUTION</b>
@@ -5445,12 +5438,7 @@ class MaterialCreator {
     var 장막=true;
     var reflag=false;
 
-    function pgViewportHeight() {
-      const canvas = document.getElementById('pg-game-canvas');
-      const height = canvas && canvas.getBoundingClientRect().height;
-      return Math.max(1, Math.round(height || document.documentElement.clientHeight || window.innerHeight || 1));
-    }
-    let avh=pgViewportHeight()
+    let avh=parseInt(window.getComputedStyle(document.getElementById('intro')).height)
 
 
 
@@ -9876,7 +9864,7 @@ var mdex=["콤보1","콤보2","콤보3","콤보4","콤보5","콤보6","dingdong"
 
         //반응
 
-        avh=pgViewportHeight()
+        avh=parseInt(window.getComputedStyle(document.getElementById('intro')).height)
         const width = window.innerWidth;
         const height = avh;
         if((window.innerWidth / avh) > 0.60){
@@ -10347,8 +10335,8 @@ var mdex=["콤보1","콤보2","콤보3","콤보4","콤보5","콤보6","dingdong"
                       // scene.add(dL);
                       var dl2 = new THREE.DirectionalLight(0xfff3d8, 0.88);
                       dl2.position.set(70, 125, 45);
-                      dl2.shadow.bias = -0.0003;
-                      dl2.shadow.normalBias = 0.25;
+                      dl2.shadow.bias = -0.00015;
+                      dl2.shadow.normalBias = 0.12;
                       dl2.shadow.radius = 2;
 
                       // dl2.position.set(10, 50, 40);
@@ -15268,7 +15256,7 @@ var mdex=["콤보1","콤보2","콤보3","콤보4","콤보5","콤보6","dingdong"
               ctx.globalAlpha = 1;
               canvas.width = (1525/2)
               canvas.height = (3157/2)
-              PG.paintSky(ctx, unitimg["bg"]);
+              ctx.drawImage(unitimg["bg"], 0,355/2, (1525/2), (1525/2)*(659/1024));
               ctx.fillStyle="white"
               // ctx.fillRect(0,0, canvas.width, canvas.height);
 
@@ -15623,7 +15611,15 @@ var mdex=["콤보1","콤보2","콤보3","콤보4","콤보5","콤보6","dingdong"
 
               //레이저
 
-              var mesh10=PG.createDeadline(통/2, bh*0.1, bw*너비);
+              var geometry1 = new THREE.BoxGeometry(통/2, bh*0.1, bw*(너비));
+              var material1 = new THREE.MeshLambertMaterial({
+                  transparent:true,
+                  opacity:0.7,
+                  visible: true,
+                  color: 0x000000
+              });
+
+              var mesh10=new THREE.Mesh(geometry1, material1);
 
               mesh10.position.set(3,2+bh*(ly),0)
               mesh.add(mesh10)
@@ -15757,10 +15753,34 @@ var mdex=["콤보1","콤보2","콤보3","콤보4","콤보5","콤보6","dingdong"
 
 
           if(ingame&&ship.length!=0){
-            var canvas=PG.waterCanvas();
-            var ctx=canvas.getContext('2d');
-            ctx.clearRect(0,0,canvas.width,canvas.height);
-            ctx.globalAlpha=1;
+
+            // var canvas = document.createElement('canvas');
+            // var ctx = canvas.getContext('2d');
+            // // const padding = 10;
+            // ctx.globalAlpha = 1;
+            // canvas.width = 1525
+            // canvas.height = 3157
+
+
+            var canvas = document.createElement('canvas');
+            var ctx = canvas.getContext('2d');
+            // const padding = 10;
+            ctx.globalAlpha = 1;
+            canvas.width = wavex
+            canvas.height = wavey
+            ctx.globalAlpha = 1;
+
+            // ctx.drawImage(unitimg["bg2"], 0,384.5, wavex, wavex*(35/1024));
+
+
+            // ctx.fillStyle = "#88caf6"
+            // ctx.fillRect(0, 0, wavex, wavey);
+
+            ctx.fillStyle = "#4790d1"
+            // ctx.fillRect(0, 1100, 1525, 3157);
+
+            ctx.fillStyle = "#18a1c7"
+            // ctx.fillRect(0, 1110, 1525, 3157);
 
             ctx.lineWidth = 1*wavesize;
             ctx.beginPath();
@@ -15880,7 +15900,27 @@ var mdex=["콤보1","콤보2","콤보3","콤보4","콤보5","콤보6","dingdong"
 
 
             increment += wave.frequency;
-            PG.updateWater(ship[0],canvas);
+            // var dur2=parseInt(elapsedTime*10)%pshift.length
+            // 배경[1].position.z=-0.25+0.5*Math.sin(elapsedTime/2)
+            // 배경[1].scale.set(1,1+0.01*(1-pshift[dur2]),1+0.01*(1-pshift[dur2]))
+
+
+
+
+
+
+
+
+            var img3 = new THREE.CanvasTexture(canvas);
+
+            // var geometry1 = new THREE.BoxGeometry(bh*0.1, bw*(너비)*1.6*(3157/1525), bw*(너비)*1.6);
+            var material1 = new THREE.MeshLambertMaterial({
+                map: img3,
+                side: THREE.DoubleSide,
+                transparent: true,
+                opacity: 1
+            });
+            ship[0].material=material1;
           }
 
           if(ingame&&배.length>1&&ingame&&배[1].children.length>15){ //단면
@@ -16873,13 +16913,37 @@ var mdex=["콤보1","콤보2","콤보3","콤보4","콤보5","콤보6","dingdong"
           // }
 
           if(ingame&&!gameoverflag&&(elapsedTime-tickettime>5)){
-            laser[0].material.visible=true;
-            if(lapflag) lasertime+=deltaTime;
-            else lasertime=0;
-            if(lasertime>3500){
-              오버=true;
-              fulltower=true;
-            }
+              laser[0].material.visible=true;
+              laser[0].material.opacity=0.5
+
+              if(lapflag){
+                // axis[1].children[0].material.color = new THREE.Color(0xF81108);
+                lasertime+=deltaTime
+                var tcl0=0xFF0000
+                var tcl1=255*(1-(lasertime/3500));
+                var tl = hexToHSL(hexToHtmlColor(colorlst[ncolornum][0]))
+                var newtl = hslToHex0(tl["h"], tl["s"]*((lasertime/3500)),tl["l"])
+
+                laser[0].material.color = new THREE.Color(parseInt(newtl, 16));
+                laser[0].material.opacity=0.5+(0.5*lasertime/3500)
+              }else{
+                lasertime=0;
+                // axis[1].children[0].material.color = new THREE.Color(0x000000);
+                laser[0].material.color = new THREE.Color(0xBABABA);
+                laser[0].material.opacity=0.5
+              }
+              if(lasertime>0){
+
+                if(lasertime>3500){
+                  오버=true;
+                  fulltower=true;
+
+                }
+
+              }
+
+          }else{
+            laser[0].material.color = new THREE.Color(0xBABABA);
           }
 
           var rmvballlst=[];
@@ -19651,8 +19715,32 @@ var mdex=["콤보1","콤보2","콤보3","콤보4","콤보5","콤보6","dingdong"
 
       }
 
-        PG.frame(deltaTime / 1000);
-        PG.render();
+        if (window.PG) PG.frame(deltaTime / 1000);
+
+        if (window.innerWidth > avh*0.85) {
+
+              renderer.setViewport(0, avh - avh * 1.8, avh * 1.8, avh * 1.8);
+              renderer.setScissor(0, 0, window.innerWidth, avh);
+              renderer.setScissorTest(true);
+              if (인게임) renderer.render(scene, camera);
+
+              // renderer.setViewport(0, avh - avh * 2.5, avh * 2.5, avh * 2.5);
+              // renderer.setScissor(0, 0, window.innerWidth, avh);
+              // renderer.setScissorTest(true);
+              // renderer.render(scene, camera);
+
+        } else {
+          // renderer.setViewport(0, avh - avh * 2.5, avh * 2.5, avh * 2.5);
+          // renderer.setScissor(0, 0, window.innerWidth, avh);
+          // renderer.setScissorTest(true);
+          // renderer.render(scene, camera);
+
+                renderer.setViewport(0, avh - window.innerWidth * 2.5, window.innerWidth * 2.5, window.innerWidth * 2.5);
+                renderer.setScissor(0, 0, window.innerWidth, avh);
+                renderer.setScissorTest(true);
+                if (인게임) renderer.render(scene, camera);
+        }
+
 
         if (false&&!gameoverflag&&!restartflag) {
             if(re3flag){
@@ -20218,8 +20306,101 @@ var mdex=["콤보1","콤보2","콤보3","콤보4","콤보5","콤보6","dingdong"
 
 
 
-    window.addEventListener("resize", resize);
-    if (window.visualViewport) window.visualViewport.addEventListener("resize", resize);
+    window.addEventListener("resize", () => { //반응
+        avh=parseInt(window.getComputedStyle(document.getElementById('intro')).height)
+        const width = window.innerWidth;
+        const height = avh;
+        if((window.innerWidth / avh) > 0.60){
+          camera.left = -bw * (2.3*1.35)
+          camera.right = bw * (2.3*1.35) * 4
+          camera.top = bw * (2.3*1.35)
+          camera.bottom = -bw * (2.3*1.35) * 4
+          카메라높이=bh*13.5;
+          lx=42.5
+        }else{
+          camera.left = -bw * (캠크기*1.1)
+          camera.right = bw * (캠크기*1.1) * 4
+          camera.top = bw * (캠크기*1.1)
+          camera.bottom = -bw * (캠크기*1.1) * 4
+          if((window.innerWidth / avh) > 0.55){
+            카메라높이=bh*15;
+
+          }else{
+            카메라높이=bh*15.5;
+
+          }
+
+
+          lx=30.5
+        }
+
+        if((window.innerWidth / avh) > 0.50){
+          document.getElementById('top').style.flexDirection = 'column';
+          document.getElementById('top').style.top="25vh"
+          document.getElementById('top').style.right="3vw"
+          document.getElementById('top').style.width="13vmin"
+          var tcell=document.querySelectorAll('.cell');
+
+          tcell.forEach((item) => {
+            item.style.width="12vmin";
+            item.style.height="10vh"
+            item.style.flexDirection = 'column';
+
+            item.style.marginRight="0vh"
+            item.style.borderRadius="12vmin";
+          });
+
+
+
+        }else{
+          document.getElementById('top').style.flexDirection = 'row';
+          document.getElementById('top').style.top="88vh"
+          document.getElementById('top').style.right="5vw"
+          document.getElementById('top').style.width="90vw"
+
+
+          var tcell=document.querySelectorAll('.cell');
+          tcell.forEach((item) => {
+            item.style.width="21vmin";
+            item.style.height="10vh"
+            item.style.flexDirection = 'column';
+            item.style.marginRight="2vh"
+            item.style.borderRadius="5vmin";
+          });
+
+          document.getElementById('top3').style.marginRight="0vh"
+
+
+        }
+
+
+
+
+
+
+        if((window.innerWidth / avh) > 0.55){
+          document.getElementById('right0').style.top="2vmax"
+          document.getElementById('left0').style.top="2vmax"
+          document.getElementById('center0').style.top="2vmax"
+          document.getElementById('fps').style.top="2vmax"
+          document.getElementById('topp').style.top="6vh"
+          document.getElementById("jcond").style.backgroundColor="rgba(200,200,200,0.7)"
+
+        }else{
+          document.getElementById('right0').style.top="6vmax"
+          document.getElementById('left0').style.top="6vmax"
+          document.getElementById('center0').style.top="6vmax"
+          document.getElementById('fps').style.top="3vmax"
+          document.getElementById('topp').style.top="8vh"
+          document.getElementById("jcond").style.backgroundColor="transparent"
+        }
+
+
+        renderer.setSize(width, height);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+
+    });
 
     function setsdic(n=0){
       var themenum=playcode[0]
@@ -20592,7 +20773,7 @@ var mdex=["콤보1","콤보2","콤보3","콤보4","콤보5","콤보6","dingdong"
 
     function resize(){ //반응
 
-      avh=pgViewportHeight()
+      avh=parseInt(window.getComputedStyle(document.getElementById('intro')).height)
       const width = window.innerWidth;
       const height = avh;
       if((window.innerWidth / avh) > 0.60){
@@ -21741,7 +21922,7 @@ var mdex=["콤보1","콤보2","콤보3","콤보4","콤보5","콤보6","dingdong"
           ctx.globalAlpha = 1;
           canvas.width = (1525/2)
           canvas.height = (3157/2)
-          PG.paintSky(ctx, unitimg["bg"]);
+          ctx.drawImage(unitimg["bg"], 0,355/2, (1525/2), (1525/2)*(659/1024));
 
 
           if(langnum<=2){
@@ -21785,7 +21966,7 @@ var mdex=["콤보1","콤보2","콤보3","콤보4","콤보5","콤보6","dingdong"
           ctx.globalAlpha = 1;
           canvas.width = (1525/2)
           canvas.height = (3157/2)
-          PG.paintSky(ctx, unitimg["bg"]);
+          ctx.drawImage(unitimg["bg"], 0,355/2, (1525/2), (1525/2)*(659/1024));
 
           var img4 = new THREE.CanvasTexture(canvas);
 
@@ -21829,8 +22010,6 @@ var mdex=["콤보1","콤보2","콤보3","콤보4","콤보5","콤보6","dingdong"
       close(게임오버)
       axis[0].children[0].material.visible=false;
       laser[0].material.visible=false;
-      lasertime=0;
-      laser[0].userData.warningLevel=0;
 
 
 
@@ -24600,16 +24779,6 @@ window.PG = (() => {
   const vp = new THREE.Vector4();
   const projected = new THREE.Vector3();
   const dummy = new THREE.Object3D();
-  const deadlineCalm = new THREE.Color(0x9cafa8);
-  const deadlineDanger = new THREE.Color(0xe87560);
-  const drawCamera = new THREE.OrthographicCamera();
-  const backdropRay = new THREE.Raycaster();
-  const backdropPlane = new THREE.Plane(new THREE.Vector3(1,0,0),0);
-  const backdropPoint = new THREE.Vector3();
-  const backdropNDC = new THREE.Vector2();
-  let oceanCanvas=null;
-  let drawReady=false;
-  const framingPoint=new THREE.Vector3();
   const bootAt = performance.now();
   const descriptions = {
     ko:['아이템 없이, 합치는 즐거움에 집중하는 항해.','특별한 아이템으로 친구를 키우고 배를 기울여요.','뚫어뻥부터 망치까지, 도구로 막힌 상황을 풀어요.','단체 손님과 나팔, 호루라기로 활기찬 항해를!','선물과 눈사람, 종소리가 함께하는 겨울 항해.'],
@@ -24619,7 +24788,7 @@ window.PG = (() => {
   const local = (k,e) => ko()?k:e;
   const translation = (index,fallback) => { try{return textdic[index][langset[langnum]]||fallback;}catch{return fallback;} };
   function toast(message){const el=$('pg-toast');el.textContent=message;el.classList.add('pg-visible');clearTimeout(state.toastTimer);state.toastTimer=setTimeout(()=>el.classList.remove('pg-visible'),2800);}
-  function syncModal(){const settings=$('setting-overlay');settings.inert=settings.classList.contains('hidden')||!settings.classList.contains('show');state.modal=['setting-overlay','desc','lang-back','credit-info','yesno','yesno2'].some(id=>{const el=$(id);if(!el||el.classList.contains('hidden'))return false;const css=getComputedStyle(el);return css.display!=='none'&&css.visibility!=='hidden'&&Number(css.opacity)!==0;})||$('table').style.display==='block';}
+  function syncModal(){state.modal=['setting-overlay','desc','lang-back','credit-info','yesno','yesno2'].some(id=>{const el=$(id);if(!el||el.classList.contains('hidden'))return false;const css=getComputedStyle(el);return css.display!=='none'&&css.visibility!=='hidden'&&Number(css.opacity)!==0;})||$('table').style.display==='block';}
   function isPaused(){return document.hidden||(typeof 인게임!=='undefined'&&인게임&&state.modal);}
   function resumeAudio(){try{const ctx=THREE.AudioContext.getContext();if(ctx.state==='suspended')ctx.resume().catch(()=>{});}catch{}}
   function playSound(n){if(!효과음)return;const audio=soundic[mdex[n-1]];if(!audio?.buffer)return;try{if(audio.isPlaying)audio.stop();audio.play();}catch{}}
@@ -24654,7 +24823,6 @@ window.PG = (() => {
     const playing=!!인게임;
     document.body.classList.toggle('pg-playing',playing);document.body.classList.toggle('pg-home',!playing);
     $('pg-home').inert=playing;$('pg-home').setAttribute('aria-hidden',String(playing));
-    if(playing)placeInvite();
     if(state.lastLanguage!==langnum)refreshLanguage();
     crew.forEach((button,i)=>{button.disabled=!state.ready||!paidlst[i];button.setAttribute('aria-pressed',String(skinnum0===i));});
     if(state.lastCrew!==skinnum0){ui.crewName.textContent=crew[skinnum0]?.querySelector('span').textContent||'';ui.crewDesc.textContent=descriptions[ko()?'ko':'en'][skinnum0]||'';$('pg-crew-index').textContent=`0${skinnum0+1} / 05`;state.lastCrew=skinnum0;}
@@ -24667,31 +24835,13 @@ window.PG = (() => {
     $('pg-hint').textContent=itemflag?local('사용할 동물이나 위치를 선택하세요 · Esc 취소','Choose an animal or a spot · Esc to cancel'):local('잡고 옮긴 뒤 놓으세요','Hold, move, and release');
     $('pg-hint').style.opacity=playing&&!state.modal&&!gameoverflag&&(itemflag||횟수<3)?'1':'0';
   }
-  // Keep the invitation below the HUD; only sidestep the item column if needed.
-  function placeInvite(){
-    const invite=$('topp'),panel=$('top');
-    if(getComputedStyle(invite).display==='none')return;
-    const key=`${window.innerWidth}:${window.innerHeight}:${panel.style.top}:${panel.style.right}:${panel.style.display}`;
-    if(state.inviteLayoutKey===key)return;
-    invite.style.right='0px';
-    const box=invite.getBoundingClientRect(),items=panel.getBoundingClientRect();
-    // Reserve the largest existing pulse border, so the invitation never jitters.
-    const pulseSize=Math.min(window.innerWidth,window.innerHeight)*.15+Math.max(window.innerWidth,window.innerHeight)*.016+4;
-    if(getComputedStyle(panel).display!=='none'&&items.width>0&&box.top+pulseSize+10>items.top&&box.top<items.bottom){
-      invite.style.right=`${Math.max(0,window.innerWidth-items.left+10)}px`;
-    }
-    state.inviteLayoutKey=key;
-  }
   function chooseCrew(index){if(!available()||!paidlst[index])return;resumeAudio();skinnum=skinnum0=index;skinchange=false;setdb([['data1','4',String(index)]]);$('btn10').src=`png/hero${index+1}.gif`;$('skin-middle0').children[0].src=`png/hero${index+1}.gif`;$('desc11').src=`png/card${index}.webp`;$('skill').src=`png/card${index}.webp`;playSound(20);syncUI();}
   function start(){if(!available())return;resumeAudio();cancelInput(true);play();syncUI();renderer.domElement.focus({preventScroll:true});}
   function resizeQuality(n){const levels=[Math.min(window.devicePixelRatio||1,1.65),1,.75];renderer.setPixelRatio(levels[Math.max(0,Math.min(2,n))]);if(state.scene)state.scene.traverse(object=>{if(!object.isDirectionalLight||!object.castShadow)return;const size=n===0?1024:512;if(object.shadow.mapSize.x!==size){object.shadow.mapSize.set(size,size);object.shadow.map?.dispose();object.shadow.map=null;object.shadow.needsUpdate=true;}});}
   // The original renderer uses an oversize square viewport, partly outside the canvas.
   // Pointer projection must use that exact viewport, not the full browser window.
   function view(){const rect=renderer.domElement.getBoundingClientRect();const side=window.innerWidth>avh*.85?avh*1.8:window.innerWidth*2.5;return {x:0,y:avh-side,w:side,h:side,rect};}
-  function setPoint(event){const v=view();const logicalW=renderer.getSize(new THREE.Vector2()).x;const logicalH=avh;const x=(event.clientX-v.rect.left)*logicalW/v.rect.width;const y=(event.clientY-v.rect.top)*logicalH/v.rect.height;
-    if(drawReady){const px=drawCamera.left+x/logicalW*(drawCamera.right-drawCamera.left),py=drawCamera.top-y/logicalH*(drawCamera.top-drawCamera.bottom);state.point.set((px-camera.left)/(camera.right-camera.left)*2-1,(py-camera.bottom)/(camera.top-camera.bottom)*2-1);}
-    else state.point.set((x-v.x)/v.w*2-1,((logicalH-y)-v.y)/v.h*2-1);
-    updatePickPointer(핑거);updatePickPointer(핑거0);return v;}
+  function setPoint(event){const v=view();const logicalW=renderer.getSize(new THREE.Vector2()).x;const logicalH=avh;const x=(event.clientX-v.rect.left)*logicalW/v.rect.width;const y=(event.clientY-v.rect.top)*logicalH/v.rect.height;state.point.set((x-v.x)/v.w*2-1,((logicalH-y)-v.y)/v.h*2-1);updatePickPointer(핑거);updatePickPointer(핑거0);return v;}
   function updatePickPointer(vector){vector.x=state.point.x;vector.y=state.point.y;}
   function limit(rank){return [17.99,17.99,17.84,16.47,15.86][rank]??15.86;}
   function aim(event){setPoint(event);camera.updateMatrixWorld();ray.setFromCamera(state.point,camera);if(!ray.ray.intersectPlane(plane,hit))return false;state.aim=THREE.MathUtils.clamp(hit.z,-limit(next),limit(next));lastX=-state.aim/lx;lastY=0;sample.forEach(m=>{m.position.z=state.aim;});if(axis[0])axis[0].position.z=state.aim;return true;}
@@ -24726,7 +24876,7 @@ window.PG = (() => {
     const bars=new THREE.InstancedMesh(geometry,material,64);bars.count=0;bars.instanceMatrix.setUsage(THREE.DynamicDrawUsage);bars.frustumCulled=false;bars.raycast=()=>{};bars.castShadow=false;bars.receiveShadow=false;
     const ring=new THREE.Mesh(new THREE.TorusGeometry(1,.024,4,40),new THREE.MeshBasicMaterial({color:0xeaffbc,transparent:true,opacity:.9,depthWrite:false}));ring.rotation.y=Math.PI/2;ring.raycast=()=>{};ring.visible=false;ring.renderOrder=2;group.add(bars,ring);return group;}
   function disposeGuide(){for(const group of axis){if(group?.name!=='PengsuDropGuide')continue;group.traverse(obj=>{obj.geometry?.dispose();if(obj.material)Array.isArray(obj.material)?obj.material.forEach(m=>m.dispose()):obj.material.dispose();});group.removeFromParent();}}
-  function pixelsPerUnit(origin,axisName){const v=view(),cam=drawReady?drawCamera:camera,w=drawReady?renderer.getSize(new THREE.Vector2()).x:v.w,h=drawReady?avh:v.h;projected.copy(origin).project(cam);const x=projected.x,y=projected.y;projected.copy(origin);projected[axisName]+=1;projected.project(cam);return Math.max(.01,Math.hypot((projected.x-x)*w*.5,(projected.y-y)*h*.5)*v.rect.height/avh);}
+  function pixelsPerUnit(origin,axisName){const v=view();projected.copy(origin).project(camera);const x=projected.x,y=projected.y;projected.copy(origin);projected[axisName]+=1;projected.project(camera);return Math.max(.01,Math.hypot((projected.x-x)*v.w*.5,(projected.y-y)*v.h*.5)*v.rect.height/avh);}
   function updateGuide(dt){const group=axis[0];if(group?.name!=='PengsuDropGuide')return;const bars=group.children[0],ring=group.children[1];const current=sample[next];const show=!!(current&&dragflag&&ready&&canInteract()&&!itemflag);
     bars.material.visible=show;ring.visible=show;if(!show){bars.count=0;return;}
     const z=current.position.z;group.position.set(0,0,z);camera.updateMatrixWorld();const radius=current.userData.pgRadius||bh*.7;const origin=new THREE.Vector3(0,current.position.y-radius-.8,z);const end=bh*4.2;const length=Math.max(0,origin.y-end);
@@ -24739,109 +24889,7 @@ window.PG = (() => {
   function sanitizeGeometry(geometry){const normal=geometry.getAttribute('normal');if(normal&&normal.array.some(n=>!Number.isFinite(n)))geometry.computeVertexNormals();const uv=geometry.getAttribute('uv');if(uv){let dirty=false;for(let i=0;i<uv.array.length;i++)if(!Number.isFinite(uv.array[i])){uv.array[i]=0;dirty=true;}if(dirty)uv.needsUpdate=true;}}
   function popScale(age){if(reduced)return 1;if(age<=0||age>=.22)return 1;const t=age/.22;const u=t-1;return .4+.6*(1+2.15*u*u*u+1.15*u*u);}
   function styleScene(){if(state.scene===scene)return;state.scene=scene;scene.background=new THREE.Color(0xd6ece7);resizeQuality(resinit);}
-  function paintSky(ctx,img){
-    const w=ctx.canvas.width,h=ctx.canvas.height,y=h*355/3157;
-    ctx.globalAlpha=1;ctx.fillStyle='#0551a7';ctx.fillRect(0,0,w,h);
-    // The old sky texture left a transparent band above its image.
-    // Extend its own top row instead of exposing the scene clear color.
-    ctx.drawImage(img,0,0,img.naturalWidth||img.width,1,0,0,w,Math.ceil(y)+1);
-    ctx.drawImage(img,0,y,w,w*659/1024);
-  }
-  function waterCanvas(){
-    if(!oceanCanvas){oceanCanvas=document.createElement('canvas');oceanCanvas.width=Math.round(wavex);oceanCanvas.height=Math.round(wavey);}
-    return oceanCanvas;
-  }
-  function updateWater(mesh,canvas){
-    if(!mesh.userData.pgWater){
-      const texture=new THREE.CanvasTexture(canvas);
-      mesh.material=new THREE.MeshLambertMaterial({map:texture,side:THREE.DoubleSide,transparent:true,depthWrite:false});
-      mesh.userData.pgWater=true;
-    }
-    mesh.material.map.needsUpdate=true;
-  }
-  function fitBackdrop(mesh,opaque){
-    if(!mesh)return;
-    let data=mesh.userData.pgBackdrop;
-    if(!data){
-      const source=mesh.geometry.parameters;
-      data=mesh.userData.pgBackdrop={height:source.height,depth:source.depth};
-      const geometry=new THREE.BufferGeometry();
-      geometry.setAttribute('position',new THREE.Float32BufferAttribute(new Float32Array(12),3));
-      geometry.setAttribute('uv',new THREE.Float32BufferAttribute(new Float32Array(8),2));
-      geometry.setAttribute('normal',new THREE.Float32BufferAttribute([1,0,0,1,0,0,1,0,0,1,0,0],3));
-      geometry.setIndex([0,1,2,0,2,3]);mesh.geometry=geometry;mesh.frustumCulled=false;
-      mesh.castShadow=false;mesh.receiveShadow=false;
-    }
-    mesh.updateWorldMatrix(true,false);
-    backdropPoint.set(0,0,0).applyMatrix4(mesh.matrixWorld);
-    backdropPlane.constant=-backdropPoint.x;
-    let minY=-data.height/2,maxY=data.height/2,minZ=-data.depth/2,maxZ=data.depth/2;
-    for(const x of [-1,1])for(const y of [-1,1]){
-      backdropNDC.set(x,y);backdropRay.setFromCamera(backdropNDC,drawCamera);
-      if(!backdropRay.ray.intersectPlane(backdropPlane,backdropPoint))continue;
-      mesh.worldToLocal(backdropPoint);
-      if(!Number.isFinite(backdropPoint.y)||Math.abs(backdropPoint.y)>10000||Math.abs(backdropPoint.z)>10000)continue;
-      minY=Math.min(minY,backdropPoint.y-2);maxY=Math.max(maxY,backdropPoint.y+2);
-      minZ=Math.min(minZ,backdropPoint.z-2);maxZ=Math.max(maxZ,backdropPoint.z+2);
-    }
-    const p=mesh.geometry.attributes.position,u=mesh.geometry.attributes.uv;
-    p.setXYZ(0,0,minY,minZ);p.setXYZ(1,0,maxY,minZ);p.setXYZ(2,0,maxY,maxZ);p.setXYZ(3,0,minY,maxZ);
-    const bottom=minY/data.height+.5,top=maxY/data.height+.5;
-    u.setXY(0,1,bottom);u.setXY(1,1,top);u.setXY(2,0,top);u.setXY(3,0,bottom);
-    p.needsUpdate=true;u.needsUpdate=true;mesh.geometry.computeBoundingSphere();
-    mesh.material.transparent=!opaque;mesh.material.depthWrite=opaque;
-  }
-  function render(){
-    if(!인게임)return;
-    const size=renderer.getSize(new THREE.Vector2()),v=view();
-    // Crop the legacy orthographic frustum mathematically, then draw into a
-    // normal full-canvas viewport. Pointer mapping keeps the same world rays.
-    camera.updateMatrixWorld(true);drawCamera.copy(camera,false);
-    drawCamera.right=camera.left+(camera.right-camera.left)*size.x/v.w;
-    drawCamera.bottom=camera.top-(camera.top-camera.bottom)*size.y/v.h;
-    // The old aspect-ratio branches could put the hull below the screen.
-    // Reserve headroom for the held piece and room below the hull, preserving
-    // uniform world scale and the legacy horizontal play-area alignment.
-    const oldHeight=drawCamera.top-drawCamera.bottom,oldWidth=drawCamera.right-drawCamera.left;
-    let top=drawCamera.top,bottom=drawCamera.bottom;
-    for(const x of [-7,7])for(const y of [10,116])for(const z of [-31,31]){
-      framingPoint.set(x,y,z).applyMatrix4(camera.matrixWorldInverse);
-      top=Math.max(top,framingPoint.y+oldHeight*.06);
-      bottom=Math.min(bottom,framingPoint.y-oldHeight*.06);
-    }
-    const width=(top-bottom)*size.x/size.y,centerRatio=-drawCamera.left/oldWidth;
-    drawCamera.left=-centerRatio*width;drawCamera.right=drawCamera.left+width;
-    drawCamera.top=top;drawCamera.bottom=bottom;
-    drawCamera.updateProjectionMatrix();drawCamera.updateMatrixWorld(true);
-    drawReady=true;
-    fitBackdrop(배경[0],true);fitBackdrop(ship[0],false);
-    renderer.setViewport(0,0,size.x,size.y);renderer.setScissorTest(false);
-    renderer.render(scene,drawCamera);
-  }
-  function createDeadline(width,height,depth){
-    const geometry=new THREE.BoxGeometry(width,height,depth);
-    const normals=geometry.getAttribute('normal'),colors=[];
-    for(let i=0;i<normals.count;i++){
-      const shade=normals.getY(i)>.5?1:normals.getX(i)>.5?.9:.65;
-      colors.push(shade,shade,shade);
-    }
-    geometry.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));
-    // This is a game indicator: opaque faces keep depth ordering stable, and
-    // baked face shading avoids lighting/shadow changes on a subpixel-thin edge.
-    const material=new THREE.MeshBasicMaterial({color:deadlineCalm,vertexColors:true,transparent:false,opacity:1,depthTest:true,depthWrite:true});
-    const mesh=new THREE.Mesh(geometry,material);
-    mesh.name='PengsuDeadline';mesh.castShadow=false;mesh.receiveShadow=false;
-    mesh.raycast=()=>{};mesh.userData.warningLevel=0;
-    return mesh;
-  }
-  function updateDeadline(dt){
-    const mesh=laser[0];if(!mesh||mesh.name!=='PengsuDeadline')return;
-    const target=Math.max(0,Math.min(1,lasertime/3500));
-    const alpha=reduced?1:1-Math.exp(-Math.max(0,dt)*10);
-    mesh.userData.warningLevel+=(target-mesh.userData.warningLevel)*alpha;
-    mesh.material.color.lerpColors(deadlineCalm,deadlineDanger,mesh.userData.warningLevel);
-  }
-  function frame(dt){styleScene();const visualDelta=isPaused()?0:Math.min(dt,.05);updateGuide(visualDelta);updateDeadline(visualDelta);if(performance.now()-state.lastUI>100){state.lastUI=performance.now();syncUI();}}
+  function frame(dt){styleScene();updateGuide(isPaused()?0:Math.min(dt,.05));if(performance.now()-state.lastUI>100){state.lastUI=performance.now();syncUI();}}
   function shareScore(){const text=local(`펭귄, 고래 그리고 수박 · ${점수}점!`,`Penguin, Whale & Watermelon · ${점수} points!`);if(navigator.share){navigator.share({title:document.title,text}).catch(e=>{if(e.name!=='AbortError')toast(text);});}else if(navigator.clipboard?.writeText){navigator.clipboard.writeText(text).then(()=>toast(local('점수를 복사했어요.','Score copied.'))).catch(()=>toast(text));}else toast(text);}
   function beforeExit(n){cancelInput(true);if(n===8){state.returningUntil=performance.now()+1700;state.aim=0;}if(!native&&(n===13||n===14)){toast(local('브라우저에서는 게임 내 기록을 확인할 수 있어요.','Your scores are available in the game.'));return false;}if(!native&&n===15){shareScore();return false;}return true;}
   function initialize(){
@@ -24850,10 +24898,10 @@ window.PG = (() => {
     $('intro').removeAttribute('onclick');$('pg-home').addEventListener('click',e=>e.stopPropagation());
     ui.play.addEventListener('click',start);crew.forEach((el,i)=>el.addEventListener('click',()=>chooseCrew(i)));
     $('pg-settings').addEventListener('click',()=>{resumeAudio();showsetting();});$('pg-help').addEventListener('click',()=>{if(state.ready)showdesc();});$('pg-scores').addEventListener('click',()=>{if(state.ready)exit0(9);});$('pg-credits').addEventListener('click',showcredit);
-    if(typeof renderer!=='undefined'&&renderer){renderer.shadowMap.type=THREE.PCFSoftShadowMap;attachInput();resizeQuality(0);resize();if(window.ResizeObserver){const viewportObserver=new ResizeObserver(resize);viewportObserver.observe(renderer.domElement);}}
+    if(typeof renderer!=='undefined'&&renderer){renderer.shadowMap.type=THREE.PCFSoftShadowMap;attachInput();resizeQuality(0);}
     syncModal();syncUI();setInterval(syncUI,200);
   }
-  const api={createGuide,disposeGuide,createDeadline,paintSky,waterCanvas,updateWater,render,frame,isPaused,resizeQuality,updatePickPointer,sanitizeGeometry,popScale,playSound,playMusic,beforeExit,cancelInput,toast,shareScore,view,setPoint,aim,chooseCrew,start,assetProgress,state};
+  const api={createGuide,disposeGuide,frame,isPaused,resizeQuality,updatePickPointer,sanitizeGeometry,popScale,playSound,playMusic,beforeExit,cancelInput,toast,shareScore,view,setPoint,aim,chooseCrew,start,assetProgress,state};
   // Install before any async loader callback can create the first scene.
   queueMicrotask(initialize);
   return api;
