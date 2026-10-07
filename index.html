@@ -23766,6 +23766,7 @@ var mdex=["콤보1","콤보2","콤보3","콤보4","콤보5","콤보6","dingdong"
 
     function play(){
       if (window.PG && !PG.state.ready) return;
+      if (!reflag) resize();
 
       배경만=false
       터치보호=elapsedTime
