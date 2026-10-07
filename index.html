@@ -2622,6 +2622,13 @@
             z-index: 3;
         }
 
+        #setting-overlay.hidden,
+        #setting-overlay:not(.show) {
+            display: none !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+        }
+
         .setting-grid {
             margin-top: 14vmin;
             /* width:20vh; */
