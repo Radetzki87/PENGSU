@@ -3265,7 +3265,7 @@ body{font-family:mono,ns,system-ui,sans-serif}
 button{touch-action:manipulation;cursor:pointer}
 button:focus-visible,[tabindex]:focus-visible{outline:3px solid #ec9465;outline-offset:4px}
 canvas{touch-action:none}
-#pg-game-canvas{position:fixed!important;top:0!important;left:0!important;margin:0!important;padding:0!important;border:0!important;display:block;outline:none;z-index:0}
+#pg-game-canvas{position:fixed!important;inset:0!important;width:100%!important;height:100%!important;margin:0!important;padding:0!important;border:0!important;display:block;outline:none;z-index:0}
 #intro{width:100%;height:100vh;height:100dvh;left:0!important;right:0;margin:0;background:#edf6ef;z-index:10;overflow:hidden;transition:opacity .2s ease}
 #intro>:not(#pg-home){display:none!important}
 body.pg-home #intro{display:block!important;top:0!important;opacity:1!important;pointer-events:auto!important;visibility:visible!important}
@@ -5444,9 +5444,9 @@ class MaterialCreator {
     var reflag=false;
 
     function pgViewportHeight() {
-      const viewport = window.visualViewport;
-      const height = viewport && Math.abs(viewport.scale - 1) < 0.01 ? viewport.height : window.innerHeight;
-      return Math.max(1, Math.round(height || document.documentElement.clientHeight || 1));
+      const canvas = document.getElementById('pg-game-canvas');
+      const height = canvas && canvas.getBoundingClientRect().height;
+      return Math.max(1, Math.round(height || document.documentElement.clientHeight || window.innerHeight || 1));
     }
     let avh=pgViewportHeight()
 
@@ -15266,7 +15266,7 @@ var mdex=["콤보1","콤보2","콤보3","콤보4","콤보5","콤보6","dingdong"
               ctx.globalAlpha = 1;
               canvas.width = (1525/2)
               canvas.height = (3157/2)
-              ctx.drawImage(unitimg["bg"], 0,355/2, (1525/2), (1525/2)*(659/1024));
+              PG.paintSky(ctx, unitimg["bg"]);
               ctx.fillStyle="white"
               // ctx.fillRect(0,0, canvas.width, canvas.height);
 
@@ -15755,34 +15755,10 @@ var mdex=["콤보1","콤보2","콤보3","콤보4","콤보5","콤보6","dingdong"
 
 
           if(ingame&&ship.length!=0){
-
-            // var canvas = document.createElement('canvas');
-            // var ctx = canvas.getContext('2d');
-            // // const padding = 10;
-            // ctx.globalAlpha = 1;
-            // canvas.width = 1525
-            // canvas.height = 3157
-
-
-            var canvas = document.createElement('canvas');
-            var ctx = canvas.getContext('2d');
-            // const padding = 10;
-            ctx.globalAlpha = 1;
-            canvas.width = wavex
-            canvas.height = wavey
-            ctx.globalAlpha = 1;
-
-            // ctx.drawImage(unitimg["bg2"], 0,384.5, wavex, wavex*(35/1024));
-
-
-            // ctx.fillStyle = "#88caf6"
-            // ctx.fillRect(0, 0, wavex, wavey);
-
-            ctx.fillStyle = "#4790d1"
-            // ctx.fillRect(0, 1100, 1525, 3157);
-
-            ctx.fillStyle = "#18a1c7"
-            // ctx.fillRect(0, 1110, 1525, 3157);
+            var canvas=PG.waterCanvas();
+            var ctx=canvas.getContext('2d');
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.globalAlpha=1;
 
             ctx.lineWidth = 1*wavesize;
             ctx.beginPath();
@@ -15902,27 +15878,7 @@ var mdex=["콤보1","콤보2","콤보3","콤보4","콤보5","콤보6","dingdong"
 
 
             increment += wave.frequency;
-            // var dur2=parseInt(elapsedTime*10)%pshift.length
-            // 배경[1].position.z=-0.25+0.5*Math.sin(elapsedTime/2)
-            // 배경[1].scale.set(1,1+0.01*(1-pshift[dur2]),1+0.01*(1-pshift[dur2]))
-
-
-
-
-
-
-
-
-            var img3 = new THREE.CanvasTexture(canvas);
-
-            // var geometry1 = new THREE.BoxGeometry(bh*0.1, bw*(너비)*1.6*(3157/1525), bw*(너비)*1.6);
-            var material1 = new THREE.MeshLambertMaterial({
-                map: img3,
-                side: THREE.DoubleSide,
-                transparent: true,
-                opacity: 1
-            });
-            ship[0].material=material1;
+            PG.updateWater(ship[0],canvas);
           }
 
           if(ingame&&배.length>1&&ingame&&배[1].children.length>15){ //단면
@@ -19693,32 +19649,8 @@ var mdex=["콤보1","콤보2","콤보3","콤보4","콤보5","콤보6","dingdong"
 
       }
 
-        if (window.PG) PG.frame(deltaTime / 1000);
-
-        if (window.innerWidth > avh*0.85) {
-
-              renderer.setViewport(0, avh - avh * 1.8, avh * 1.8, avh * 1.8);
-              renderer.setScissor(0, 0, window.innerWidth, avh);
-              renderer.setScissorTest(true);
-              if (인게임) renderer.render(scene, camera);
-
-              // renderer.setViewport(0, avh - avh * 2.5, avh * 2.5, avh * 2.5);
-              // renderer.setScissor(0, 0, window.innerWidth, avh);
-              // renderer.setScissorTest(true);
-              // renderer.render(scene, camera);
-
-        } else {
-          // renderer.setViewport(0, avh - avh * 2.5, avh * 2.5, avh * 2.5);
-          // renderer.setScissor(0, 0, window.innerWidth, avh);
-          // renderer.setScissorTest(true);
-          // renderer.render(scene, camera);
-
-                renderer.setViewport(0, avh - window.innerWidth * 2.5, window.innerWidth * 2.5, window.innerWidth * 2.5);
-                renderer.setScissor(0, 0, window.innerWidth, avh);
-                renderer.setScissorTest(true);
-                if (인게임) renderer.render(scene, camera);
-        }
-
+        PG.frame(deltaTime / 1000);
+        PG.render();
 
         if (false&&!gameoverflag&&!restartflag) {
             if(re3flag){
@@ -21807,7 +21739,7 @@ var mdex=["콤보1","콤보2","콤보3","콤보4","콤보5","콤보6","dingdong"
           ctx.globalAlpha = 1;
           canvas.width = (1525/2)
           canvas.height = (3157/2)
-          ctx.drawImage(unitimg["bg"], 0,355/2, (1525/2), (1525/2)*(659/1024));
+          PG.paintSky(ctx, unitimg["bg"]);
 
 
           if(langnum<=2){
@@ -21851,7 +21783,7 @@ var mdex=["콤보1","콤보2","콤보3","콤보4","콤보5","콤보6","dingdong"
           ctx.globalAlpha = 1;
           canvas.width = (1525/2)
           canvas.height = (3157/2)
-          ctx.drawImage(unitimg["bg"], 0,355/2, (1525/2), (1525/2)*(659/1024));
+          PG.paintSky(ctx, unitimg["bg"]);
 
           var img4 = new THREE.CanvasTexture(canvas);
 
@@ -24668,6 +24600,14 @@ window.PG = (() => {
   const dummy = new THREE.Object3D();
   const deadlineCalm = new THREE.Color(0x9cafa8);
   const deadlineDanger = new THREE.Color(0xe87560);
+  const drawCamera = new THREE.OrthographicCamera();
+  const backdropRay = new THREE.Raycaster();
+  const backdropPlane = new THREE.Plane(new THREE.Vector3(1,0,0),0);
+  const backdropPoint = new THREE.Vector3();
+  const backdropNDC = new THREE.Vector2();
+  let oceanCanvas=null;
+  let drawReady=false;
+  const framingPoint=new THREE.Vector3();
   const bootAt = performance.now();
   const descriptions = {
     ko:['아이템 없이, 합치는 즐거움에 집중하는 항해.','특별한 아이템으로 친구를 키우고 배를 기울여요.','뚫어뻥부터 망치까지, 도구로 막힌 상황을 풀어요.','단체 손님과 나팔, 호루라기로 활기찬 항해를!','선물과 눈사람, 종소리가 함께하는 겨울 항해.'],
@@ -24730,7 +24670,10 @@ window.PG = (() => {
   // The original renderer uses an oversize square viewport, partly outside the canvas.
   // Pointer projection must use that exact viewport, not the full browser window.
   function view(){const rect=renderer.domElement.getBoundingClientRect();const side=window.innerWidth>avh*.85?avh*1.8:window.innerWidth*2.5;return {x:0,y:avh-side,w:side,h:side,rect};}
-  function setPoint(event){const v=view();const logicalW=renderer.getSize(new THREE.Vector2()).x;const logicalH=avh;const x=(event.clientX-v.rect.left)*logicalW/v.rect.width;const y=(event.clientY-v.rect.top)*logicalH/v.rect.height;state.point.set((x-v.x)/v.w*2-1,((logicalH-y)-v.y)/v.h*2-1);updatePickPointer(핑거);updatePickPointer(핑거0);return v;}
+  function setPoint(event){const v=view();const logicalW=renderer.getSize(new THREE.Vector2()).x;const logicalH=avh;const x=(event.clientX-v.rect.left)*logicalW/v.rect.width;const y=(event.clientY-v.rect.top)*logicalH/v.rect.height;
+    if(drawReady){const px=drawCamera.left+x/logicalW*(drawCamera.right-drawCamera.left),py=drawCamera.top-y/logicalH*(drawCamera.top-drawCamera.bottom);state.point.set((px-camera.left)/(camera.right-camera.left)*2-1,(py-camera.bottom)/(camera.top-camera.bottom)*2-1);}
+    else state.point.set((x-v.x)/v.w*2-1,((logicalH-y)-v.y)/v.h*2-1);
+    updatePickPointer(핑거);updatePickPointer(핑거0);return v;}
   function updatePickPointer(vector){vector.x=state.point.x;vector.y=state.point.y;}
   function limit(rank){return [17.99,17.99,17.84,16.47,15.86][rank]??15.86;}
   function aim(event){setPoint(event);camera.updateMatrixWorld();ray.setFromCamera(state.point,camera);if(!ray.ray.intersectPlane(plane,hit))return false;state.aim=THREE.MathUtils.clamp(hit.z,-limit(next),limit(next));lastX=-state.aim/lx;lastY=0;sample.forEach(m=>{m.position.z=state.aim;});if(axis[0])axis[0].position.z=state.aim;return true;}
@@ -24765,7 +24708,7 @@ window.PG = (() => {
     const bars=new THREE.InstancedMesh(geometry,material,64);bars.count=0;bars.instanceMatrix.setUsage(THREE.DynamicDrawUsage);bars.frustumCulled=false;bars.raycast=()=>{};bars.castShadow=false;bars.receiveShadow=false;
     const ring=new THREE.Mesh(new THREE.TorusGeometry(1,.024,4,40),new THREE.MeshBasicMaterial({color:0xeaffbc,transparent:true,opacity:.9,depthWrite:false}));ring.rotation.y=Math.PI/2;ring.raycast=()=>{};ring.visible=false;ring.renderOrder=2;group.add(bars,ring);return group;}
   function disposeGuide(){for(const group of axis){if(group?.name!=='PengsuDropGuide')continue;group.traverse(obj=>{obj.geometry?.dispose();if(obj.material)Array.isArray(obj.material)?obj.material.forEach(m=>m.dispose()):obj.material.dispose();});group.removeFromParent();}}
-  function pixelsPerUnit(origin,axisName){const v=view();projected.copy(origin).project(camera);const x=projected.x,y=projected.y;projected.copy(origin);projected[axisName]+=1;projected.project(camera);return Math.max(.01,Math.hypot((projected.x-x)*v.w*.5,(projected.y-y)*v.h*.5)*v.rect.height/avh);}
+  function pixelsPerUnit(origin,axisName){const v=view(),cam=drawReady?drawCamera:camera,w=drawReady?renderer.getSize(new THREE.Vector2()).x:v.w,h=drawReady?avh:v.h;projected.copy(origin).project(cam);const x=projected.x,y=projected.y;projected.copy(origin);projected[axisName]+=1;projected.project(cam);return Math.max(.01,Math.hypot((projected.x-x)*w*.5,(projected.y-y)*h*.5)*v.rect.height/avh);}
   function updateGuide(dt){const group=axis[0];if(group?.name!=='PengsuDropGuide')return;const bars=group.children[0],ring=group.children[1];const current=sample[next];const show=!!(current&&dragflag&&ready&&canInteract()&&!itemflag);
     bars.material.visible=show;ring.visible=show;if(!show){bars.count=0;return;}
     const z=current.position.z;group.position.set(0,0,z);camera.updateMatrixWorld();const radius=current.userData.pgRadius||bh*.7;const origin=new THREE.Vector3(0,current.position.y-radius-.8,z);const end=bh*4.2;const length=Math.max(0,origin.y-end);
@@ -24778,6 +24721,85 @@ window.PG = (() => {
   function sanitizeGeometry(geometry){const normal=geometry.getAttribute('normal');if(normal&&normal.array.some(n=>!Number.isFinite(n)))geometry.computeVertexNormals();const uv=geometry.getAttribute('uv');if(uv){let dirty=false;for(let i=0;i<uv.array.length;i++)if(!Number.isFinite(uv.array[i])){uv.array[i]=0;dirty=true;}if(dirty)uv.needsUpdate=true;}}
   function popScale(age){if(reduced)return 1;if(age<=0||age>=.22)return 1;const t=age/.22;const u=t-1;return .4+.6*(1+2.15*u*u*u+1.15*u*u);}
   function styleScene(){if(state.scene===scene)return;state.scene=scene;scene.background=new THREE.Color(0xd6ece7);resizeQuality(resinit);}
+  function paintSky(ctx,img){
+    const w=ctx.canvas.width,h=ctx.canvas.height,y=h*355/3157;
+    ctx.globalAlpha=1;ctx.fillStyle='#0551a7';ctx.fillRect(0,0,w,h);
+    // The old sky texture left a transparent band above its image.
+    // Extend its own top row instead of exposing the scene clear color.
+    ctx.drawImage(img,0,0,img.naturalWidth||img.width,1,0,0,w,Math.ceil(y)+1);
+    ctx.drawImage(img,0,y,w,w*659/1024);
+  }
+  function waterCanvas(){
+    if(!oceanCanvas){oceanCanvas=document.createElement('canvas');oceanCanvas.width=Math.round(wavex);oceanCanvas.height=Math.round(wavey);}
+    return oceanCanvas;
+  }
+  function updateWater(mesh,canvas){
+    if(!mesh.userData.pgWater){
+      const texture=new THREE.CanvasTexture(canvas);
+      mesh.material=new THREE.MeshLambertMaterial({map:texture,side:THREE.DoubleSide,transparent:true,depthWrite:false});
+      mesh.userData.pgWater=true;
+    }
+    mesh.material.map.needsUpdate=true;
+  }
+  function fitBackdrop(mesh,opaque){
+    if(!mesh)return;
+    let data=mesh.userData.pgBackdrop;
+    if(!data){
+      const source=mesh.geometry.parameters;
+      data=mesh.userData.pgBackdrop={height:source.height,depth:source.depth};
+      const geometry=new THREE.BufferGeometry();
+      geometry.setAttribute('position',new THREE.Float32BufferAttribute(new Float32Array(12),3));
+      geometry.setAttribute('uv',new THREE.Float32BufferAttribute(new Float32Array(8),2));
+      geometry.setAttribute('normal',new THREE.Float32BufferAttribute([1,0,0,1,0,0,1,0,0,1,0,0],3));
+      geometry.setIndex([0,1,2,0,2,3]);mesh.geometry=geometry;mesh.frustumCulled=false;
+      mesh.castShadow=false;mesh.receiveShadow=false;
+    }
+    mesh.updateWorldMatrix(true,false);
+    backdropPoint.set(0,0,0).applyMatrix4(mesh.matrixWorld);
+    backdropPlane.constant=-backdropPoint.x;
+    let minY=-data.height/2,maxY=data.height/2,minZ=-data.depth/2,maxZ=data.depth/2;
+    for(const x of [-1,1])for(const y of [-1,1]){
+      backdropNDC.set(x,y);backdropRay.setFromCamera(backdropNDC,drawCamera);
+      if(!backdropRay.ray.intersectPlane(backdropPlane,backdropPoint))continue;
+      mesh.worldToLocal(backdropPoint);
+      if(!Number.isFinite(backdropPoint.y)||Math.abs(backdropPoint.y)>10000||Math.abs(backdropPoint.z)>10000)continue;
+      minY=Math.min(minY,backdropPoint.y-2);maxY=Math.max(maxY,backdropPoint.y+2);
+      minZ=Math.min(minZ,backdropPoint.z-2);maxZ=Math.max(maxZ,backdropPoint.z+2);
+    }
+    const p=mesh.geometry.attributes.position,u=mesh.geometry.attributes.uv;
+    p.setXYZ(0,0,minY,minZ);p.setXYZ(1,0,maxY,minZ);p.setXYZ(2,0,maxY,maxZ);p.setXYZ(3,0,minY,maxZ);
+    const bottom=minY/data.height+.5,top=maxY/data.height+.5;
+    u.setXY(0,1,bottom);u.setXY(1,1,top);u.setXY(2,0,top);u.setXY(3,0,bottom);
+    p.needsUpdate=true;u.needsUpdate=true;mesh.geometry.computeBoundingSphere();
+    mesh.material.transparent=!opaque;mesh.material.depthWrite=opaque;
+  }
+  function render(){
+    if(!인게임)return;
+    const size=renderer.getSize(new THREE.Vector2()),v=view();
+    // Crop the legacy orthographic frustum mathematically, then draw into a
+    // normal full-canvas viewport. Pointer mapping keeps the same world rays.
+    camera.updateMatrixWorld(true);drawCamera.copy(camera,false);
+    drawCamera.right=camera.left+(camera.right-camera.left)*size.x/v.w;
+    drawCamera.bottom=camera.top-(camera.top-camera.bottom)*size.y/v.h;
+    // The old aspect-ratio branches could put the hull below the screen.
+    // Reserve headroom for the held piece and room below the hull, preserving
+    // uniform world scale and the legacy horizontal play-area alignment.
+    const oldHeight=drawCamera.top-drawCamera.bottom,oldWidth=drawCamera.right-drawCamera.left;
+    let top=drawCamera.top,bottom=drawCamera.bottom;
+    for(const x of [-7,7])for(const y of [10,116])for(const z of [-31,31]){
+      framingPoint.set(x,y,z).applyMatrix4(camera.matrixWorldInverse);
+      top=Math.max(top,framingPoint.y+oldHeight*.06);
+      bottom=Math.min(bottom,framingPoint.y-oldHeight*.06);
+    }
+    const width=(top-bottom)*size.x/size.y,centerRatio=-drawCamera.left/oldWidth;
+    drawCamera.left=-centerRatio*width;drawCamera.right=drawCamera.left+width;
+    drawCamera.top=top;drawCamera.bottom=bottom;
+    drawCamera.updateProjectionMatrix();drawCamera.updateMatrixWorld(true);
+    drawReady=true;
+    fitBackdrop(배경[0],true);fitBackdrop(ship[0],false);
+    renderer.setViewport(0,0,size.x,size.y);renderer.setScissorTest(false);
+    renderer.render(scene,drawCamera);
+  }
   function createDeadline(width,height,depth){
     const geometry=new THREE.BoxGeometry(width,height,depth);
     const normals=geometry.getAttribute('normal'),colors=[];
@@ -24810,10 +24832,10 @@ window.PG = (() => {
     $('intro').removeAttribute('onclick');$('pg-home').addEventListener('click',e=>e.stopPropagation());
     ui.play.addEventListener('click',start);crew.forEach((el,i)=>el.addEventListener('click',()=>chooseCrew(i)));
     $('pg-settings').addEventListener('click',()=>{resumeAudio();showsetting();});$('pg-help').addEventListener('click',()=>{if(state.ready)showdesc();});$('pg-scores').addEventListener('click',()=>{if(state.ready)exit0(9);});$('pg-credits').addEventListener('click',showcredit);
-    if(typeof renderer!=='undefined'&&renderer){renderer.shadowMap.type=THREE.PCFSoftShadowMap;attachInput();resizeQuality(0);}
+    if(typeof renderer!=='undefined'&&renderer){renderer.shadowMap.type=THREE.PCFSoftShadowMap;attachInput();resizeQuality(0);resize();if(window.ResizeObserver){const viewportObserver=new ResizeObserver(resize);viewportObserver.observe(renderer.domElement);}}
     syncModal();syncUI();setInterval(syncUI,200);
   }
-  const api={createGuide,disposeGuide,createDeadline,frame,isPaused,resizeQuality,updatePickPointer,sanitizeGeometry,popScale,playSound,playMusic,beforeExit,cancelInput,toast,shareScore,view,setPoint,aim,chooseCrew,start,assetProgress,state};
+  const api={createGuide,disposeGuide,createDeadline,paintSky,waterCanvas,updateWater,render,frame,isPaused,resizeQuality,updatePickPointer,sanitizeGeometry,popScale,playSound,playMusic,beforeExit,cancelInput,toast,shareScore,view,setPoint,aim,chooseCrew,start,assetProgress,state};
   // Install before any async loader callback can create the first scene.
   queueMicrotask(initialize);
   return api;
