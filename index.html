@@ -3361,6 +3361,41 @@ body.pg-web #leader,body.pg-web #medal0{display:none!important}
 @media(max-aspect-ratio:1/2){#pg-hint{bottom:calc(13vh + var(--pg-safe-bottom))}}
 @media(prefers-reduced-motion:reduce){.pg-seascape img,.pg-score-pop{animation:none!important}#pg-home *,#pg-toast{transition:none!important}}
 
+/* Responsive game frame: UI and canvas share the same measured coordinates. */
+#pg-layout-probe{position:fixed;inset:0;width:100%;height:100vh;height:100dvh;box-sizing:border-box;padding:max(8px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));visibility:hidden;pointer-events:none;contain:strict}
+body.pg-playing{background:radial-gradient(ellipse at 50% 10%,#def3dd 0,#a3d9d0 38%,#4c9ea9 100%)}
+body.pg-playing::before{content:"";position:fixed;inset:-28px;z-index:0;pointer-events:none;background:linear-gradient(#d5ede990,#2e778bb0),url('png/ee1.webp') center/cover;filter:blur(24px);opacity:.4}
+#pg-game-canvas{position:fixed!important;left:var(--pg-board-x,0px)!important;top:var(--pg-board-y,0px)!important;z-index:1;border-radius:14px;box-shadow:0 14px 48px #174b5438;outline:none}
+body.pg-home #pg-game-canvas{visibility:hidden;pointer-events:none}
+body.pg-playing>[data-pg-hud]:is(#left0,#center0,#right0,#fps,#top,#topp,#pg-next,#pg-hint){position:fixed!important;left:var(--pg-x)!important;top:var(--pg-y)!important;right:auto!important;bottom:auto!important;width:var(--pg-w)!important;height:var(--pg-h)!important;box-sizing:border-box!important;margin:0!important;transform:none;min-width:0;max-width:none}
+body.pg-playing #left0,body.pg-playing #center0{padding:10px!important}
+body.pg-playing #right0{font-size:24px!important;padding:18px 8px 3px!important;overflow:hidden}
+body.pg-playing #fps{font-size:12px!important;line-height:20px;text-align:right;white-space:nowrap}
+body.pg-playing #pg-next{justify-content:space-between;padding:5px 9px;gap:4px;font-size:10px;line-height:1.2}
+body.pg-playing #pg-next img{width:34px;height:34px;max-width:none;object-fit:contain}
+body.pg-side-hud #pg-next{flex-direction:column;justify-content:center}
+body.pg-playing #top{flex-direction:row!important;justify-content:space-between;align-items:center;gap:8px!important}
+body.pg-side-hud #top{flex-direction:column!important;gap:10px!important}
+body.pg-playing #top .cell{box-sizing:border-box;width:var(--pg-cell-w)!important;height:var(--pg-cell-h)!important;min-width:44px!important;min-height:44px!important;margin:0!important;flex:none;border-radius:13px!important;display:flex;flex-direction:column!important;align-items:center;justify-content:center;gap:2px;padding:4px}
+body.pg-playing #top .cell img{width:36px!important;height:36px!important;max-width:75%;max-height:66%;margin:0!important;object-fit:contain}
+body.pg-playing #top .cell>div{font-size:13px!important;line-height:15px}
+body.pg-playing #topp{padding:0!important;border:0;z-index:12!important;background:transparent}
+body.pg-playing #topp .cell0{box-sizing:border-box;width:100%!important;height:100%!important;min-height:44px;margin:0!important;border-width:2px!important;border-radius:12px;background:#f7fbf1e8;box-shadow:0 3px 0 #abcabf;flex-direction:row;align-items:center;justify-content:center;gap:4px}
+body.pg-playing #topp img{position:static;transform:none;width:32px;height:32px;object-fit:contain}
+body.pg-playing #topp .cell0>div{transform:none;font:12px/1 mono,ns,sans-serif;color:var(--pg-ink);white-space:nowrap}
+body.pg-playing #pg-hint{display:flex;align-items:center;justify-content:center;padding:5px 9px;font-size:11px;line-height:1.4;z-index:14}
+body.pg-side-hud #pg-hint{border-radius:12px;white-space:normal}
+#setting-overlay.show{justify-content:flex-start;padding:16px 0 max(16px,env(safe-area-inset-bottom));box-sizing:border-box}
+#setting-overlay #resolution{margin:12px auto 10px!important;flex-shrink:0}
+#setting-overlay .option-RL2{flex-shrink:0}
+#setting-overlay .setting-grid{flex-shrink:0}
+
+body.pg-short-hud #top{flex-direction:row!important;flex-wrap:wrap;gap:8px!important;align-content:flex-start}
+body.pg-short-hud #top .cell{padding:2px;gap:0;border-radius:10px!important}
+body.pg-short-hud #top .cell img{width:25px!important;height:25px!important}
+body.pg-short-hud #top .cell>div{font-size:11px!important;line-height:12px}
+@media(max-height:280px){body.pg-short-hud #pg-hint{visibility:hidden}}
+
 </style>
 </head>
 
@@ -19731,30 +19766,7 @@ var mdex=["콤보1","콤보2","콤보3","콤보4","콤보5","콤보6","dingdong"
 
         if (window.PG) PG.frame(deltaTime / 1000);
 
-        if (window.innerWidth > avh*0.85) {
-
-              renderer.setViewport(0, avh - avh * 1.8, avh * 1.8, avh * 1.8);
-              renderer.setScissor(0, 0, window.innerWidth, avh);
-              renderer.setScissorTest(true);
-              if (인게임) renderer.render(scene, camera);
-
-              // renderer.setViewport(0, avh - avh * 2.5, avh * 2.5, avh * 2.5);
-              // renderer.setScissor(0, 0, window.innerWidth, avh);
-              // renderer.setScissorTest(true);
-              // renderer.render(scene, camera);
-
-        } else {
-          // renderer.setViewport(0, avh - avh * 2.5, avh * 2.5, avh * 2.5);
-          // renderer.setScissor(0, 0, window.innerWidth, avh);
-          // renderer.setScissorTest(true);
-          // renderer.render(scene, camera);
-
-                renderer.setViewport(0, avh - window.innerWidth * 2.5, window.innerWidth * 2.5, window.innerWidth * 2.5);
-                renderer.setScissor(0, 0, window.innerWidth, avh);
-                renderer.setScissorTest(true);
-                if (인게임) renderer.render(scene, camera);
-        }
-
+        if (window.PG) PG.render();
 
         if (false&&!gameoverflag&&!restartflag) {
             if(re3flag){
@@ -24851,12 +24863,74 @@ window.PG = (() => {
     $('pg-hint').style.opacity=playing&&!state.modal&&!gameoverflag&&(itemflag||횟수<3)?'1':'0';
   }
   function chooseCrew(index){if(!available()||!paidlst[index])return;resumeAudio();skinnum=skinnum0=index;skinchange=false;setdb([['data1','4',String(index)]]);$('btn10').src=`png/hero${index+1}.gif`;$('skin-middle0').children[0].src=`png/hero${index+1}.gif`;$('desc11').src=`png/card${index}.webp`;$('skill').src=`png/card${index}.webp`;playSound(20);syncUI();}
-  function start(){if(!available())return;resumeAudio();cancelInput(true);play();syncUI();renderer.domElement.focus({preventScroll:true});}
+  function start(){if(!available())return;resumeAudio();cancelInput(true);play();syncUI();fitLayout(true);renderer.domElement.focus({preventScroll:true});}
   function resizeQuality(n){const levels=[Math.min(window.devicePixelRatio||1,1.65),1,.75];renderer.setPixelRatio(levels[Math.max(0,Math.min(2,n))]);if(state.scene)state.scene.traverse(object=>{if(!object.isDirectionalLight||!object.castShadow)return;const size=n===0?1024:512;if(object.shadow.mapSize.x!==size){object.shadow.mapSize.set(size,size);object.shadow.map?.dispose();object.shadow.map=null;object.shadow.needsUpdate=true;}});}
-  // The original renderer uses an oversize square viewport, partly outside the canvas.
-  // Pointer projection must use that exact viewport, not the full browser window.
-  function view(){const rect=renderer.domElement.getBoundingClientRect();const side=window.innerWidth>avh*.85?avh*1.8:window.innerWidth*2.5;return {x:0,y:avh-side,w:side,h:side,rect};}
-  function setPoint(event){const v=view();const logicalW=renderer.getSize(new THREE.Vector2()).x;const logicalH=avh;const x=(event.clientX-v.rect.left)*logicalW/v.rect.width;const y=(event.clientY-v.rect.top)*logicalH/v.rect.height;state.point.set((x-v.x)/v.w*2-1,((logicalH-y)-v.y)/v.h*2-1);updatePickPointer(핑거);updatePickPointer(핑거0);return v;}
+  // One layout owns the board, HUD, orthographic view and pointer coordinates.
+  const layoutSize = new THREE.Vector2();
+  let layoutDirty = true;
+  function placeHud(id,x,y,w,h){
+    const el=$(id);el.dataset.pgHud='';
+    for(const [name,value] of Object.entries({x,y,w,h}))el.style.setProperty('--pg-'+name,value.toFixed(2)+'px');
+  }
+  function fitLayout(force=false){
+    const probe=$('pg-layout-probe');if(!probe||!renderer)return;
+    if(layoutDirty||force||!state.layout){
+      const rect=probe.getBoundingClientRect(),css=getComputedStyle(probe),vv=window.visualViewport;
+      const fullW=rect.width,fullH=vv&&Math.abs(vv.scale-1)<.01?Math.min(rect.height,vv.height):rect.height;
+      const offsetX=vv&&Math.abs(vv.scale-1)<.01?vv.offsetLeft:0,offsetY=vv&&Math.abs(vv.scale-1)<.01?vv.offsetTop:0;
+      const left=parseFloat(css.paddingLeft)||8,right=parseFloat(css.paddingRight)||8,top=parseFloat(css.paddingTop)||8,bottom=parseFloat(css.paddingBottom)||8;
+      const aw=Math.max(1,fullW-left-right),ah=Math.max(1,fullH-top-bottom),ratio=64/120;
+      const rail=96,gap=12,header=108,dock=80;
+      const portraitH=Math.min(Math.max(1,ah-header-dock),aw/ratio);
+      const sideH=Math.min(ah,(aw-2*(rail+gap))/ratio);
+      const side=sideH>=120&&ah>=204&&sideH>portraitH+16;
+      const h=side?sideH:portraitH;
+      const w=h*ratio,groupH=side?Math.max(204,h):h+header+dock;
+      const x=offsetX+left+(aw-w)/2,y=offsetY+top+(ah-groupH)/2+(side?(groupH-h)/2:header);
+      if(state.layout&&state.active)cancelInput(true);
+      state.layout={x,y,w:Math.max(1,w),h:Math.max(1,h),side};layoutDirty=false;
+      document.body.classList.toggle('pg-side-hud',side);
+      document.body.classList.toggle('pg-short-hud',side&&h<330);
+      const root=document.documentElement.style;
+      root.setProperty('--pg-board-x',x.toFixed(2)+'px');root.setProperty('--pg-board-y',y.toFixed(2)+'px');
+      root.setProperty('--pg-board-w',w.toFixed(2)+'px');root.setProperty('--pg-board-h',h.toFixed(2)+'px');
+      if(side){
+        const hudY=y-(groupH-h)/2,l=x-rail-gap,r=x+w+gap,cell=Math.min(72,Math.max(44,(h-106)/4-9));
+        placeHud('left0',l,hudY,44,44);placeHud('center0',l+52,hudY,44,44);
+        placeHud('pg-next',l,hudY+58,rail,66);placeHud('topp',l,hudY+138,rail,58);
+        placeHud('pg-hint',l,hudY+210,rail,Math.min(64,Math.max(28,h-210))); 
+        placeHud('right0',r,hudY,rail,54);placeHud('fps',r,hudY+62,rail,20);
+        placeHud('top',r,hudY+100,rail,h<330?96:cell*4+30);
+        root.setProperty('--pg-cell-w',(h<330?44:rail)+'px');root.setProperty('--pg-cell-h',(h<330?44:cell)+'px');
+      }else{
+        const t=y-header,hw=Math.max(w,Math.min(aw,360)),hx=x+(w-hw)/2;
+        placeHud('left0',hx,t,44,44);placeHud('center0',hx+52,t,44,44);
+        placeHud('right0',hx+hw-96,t,96,50);
+        placeHud('pg-next',hx,t+54,96,46);placeHud('topp',hx+hw-96,t+54,96,46);
+        placeHud('fps',hx+104,t+67,Math.max(1,hw-208),20);
+        placeHud('top',hx,y+h+10,hw,64);
+        root.setProperty('--pg-cell-w',Math.max(44,(hw-24)/4).toFixed(2)+'px');root.setProperty('--pg-cell-h','64px');
+        placeHud('pg-hint',x+12,y+h-37,Math.max(1,w-24),29);
+      }
+    }
+    const l=state.layout;renderer.getSize(layoutSize);
+    if(Math.abs(layoutSize.x-l.w)>.01||Math.abs(layoutSize.y-l.h)>.01)renderer.setSize(l.w,l.h);
+    // Keep the complete vessel and drop zone visible, independent of screen aspect.
+    카메라높이=bh*15.5;camera.position.y=카메라높이;
+    const a=-32,b=32,c=120-camera.position.y,d=-camera.position.y;
+    if(camera.left!==a||camera.right!==b||camera.top!==c||camera.bottom!==d){camera.left=a;camera.right=b;camera.top=c;camera.bottom=d;camera.aspect=l.w/l.h;camera.updateProjectionMatrix();}
+  }
+  function render(){fitLayout();const l=state.layout;if(!l)return;renderer.setViewport(0,0,l.w,l.h);renderer.setScissor(0,0,l.w,l.h);renderer.setScissorTest(false);if(인게임)renderer.render(scene,camera);}
+  function invalidateLayout(){layoutDirty=true;fitLayout();}
+  function attachLayout(){
+    const probe=document.createElement('div');probe.id='pg-layout-probe';probe.setAttribute('aria-hidden','true');document.body.appendChild(probe);
+    window.addEventListener('resize',invalidateLayout);window.addEventListener('orientationchange',invalidateLayout);
+    window.visualViewport?.addEventListener('resize',invalidateLayout);window.visualViewport?.addEventListener('scroll',invalidateLayout);
+    if(window.ResizeObserver)new ResizeObserver(invalidateLayout).observe(probe);
+    fitLayout(true);
+  }
+  function view(){fitLayout();const rect=renderer.domElement.getBoundingClientRect();renderer.getSize(layoutSize);return {x:0,y:0,w:layoutSize.x,h:layoutSize.y,rect};}
+  function setPoint(event){const v=view();state.point.set((event.clientX-v.rect.left)/v.rect.width*2-1,1-(event.clientY-v.rect.top)/v.rect.height*2);updatePickPointer(핑거);updatePickPointer(핑거0);return v;}
   function updatePickPointer(vector){vector.x=state.point.x;vector.y=state.point.y;}
   function limit(rank){return [17.99,17.99,17.84,16.47,15.86][rank]??15.86;}
   function aim(event){setPoint(event);camera.updateMatrixWorld();ray.setFromCamera(state.point,camera);if(!ray.ray.intersectPlane(plane,hit))return false;state.aim=THREE.MathUtils.clamp(hit.z,-limit(next),limit(next));lastX=-state.aim/lx;lastY=0;sample.forEach(m=>{m.position.z=state.aim;});if(axis[0])axis[0].position.z=state.aim;return true;}
@@ -24891,7 +24965,7 @@ window.PG = (() => {
     const bars=new THREE.InstancedMesh(geometry,material,64);bars.count=0;bars.instanceMatrix.setUsage(THREE.DynamicDrawUsage);bars.frustumCulled=false;bars.raycast=()=>{};bars.castShadow=false;bars.receiveShadow=false;
     const ring=new THREE.Mesh(new THREE.TorusGeometry(1,.024,4,40),new THREE.MeshBasicMaterial({color:0xeaffbc,transparent:true,opacity:.9,depthWrite:false}));ring.rotation.y=Math.PI/2;ring.raycast=()=>{};ring.visible=false;ring.renderOrder=2;group.add(bars,ring);return group;}
   function disposeGuide(){for(const group of axis){if(group?.name!=='PengsuDropGuide')continue;group.traverse(obj=>{obj.geometry?.dispose();if(obj.material)Array.isArray(obj.material)?obj.material.forEach(m=>m.dispose()):obj.material.dispose();});group.removeFromParent();}}
-  function pixelsPerUnit(origin,axisName){const v=view();projected.copy(origin).project(camera);const x=projected.x,y=projected.y;projected.copy(origin);projected[axisName]+=1;projected.project(camera);return Math.max(.01,Math.hypot((projected.x-x)*v.w*.5,(projected.y-y)*v.h*.5)*v.rect.height/avh);}
+  function pixelsPerUnit(origin,axisName){const v=view();projected.copy(origin).project(camera);const x=projected.x,y=projected.y;projected.copy(origin);projected[axisName]+=1;projected.project(camera);return Math.max(.01,Math.hypot((projected.x-x)*v.w*.5,(projected.y-y)*v.h*.5)*v.rect.height/v.h);}
   function updateGuide(dt){const group=axis[0];if(group?.name!=='PengsuDropGuide')return;const bars=group.children[0],ring=group.children[1];const current=sample[next];const show=!!(current&&dragflag&&ready&&canInteract()&&!itemflag);
     bars.material.visible=show;ring.visible=show;if(!show){bars.count=0;return;}
     const z=current.position.z;group.position.set(0,0,z);camera.updateMatrixWorld();const radius=current.userData.pgRadius||bh*.7;const origin=new THREE.Vector3(0,current.position.y-radius-.8,z);const end=bh*4.2;const length=Math.max(0,origin.y-end);
@@ -24904,7 +24978,7 @@ window.PG = (() => {
   function sanitizeGeometry(geometry){const normal=geometry.getAttribute('normal');if(normal&&normal.array.some(n=>!Number.isFinite(n)))geometry.computeVertexNormals();const uv=geometry.getAttribute('uv');if(uv){let dirty=false;for(let i=0;i<uv.array.length;i++)if(!Number.isFinite(uv.array[i])){uv.array[i]=0;dirty=true;}if(dirty)uv.needsUpdate=true;}}
   function popScale(age){if(reduced)return 1;if(age<=0||age>=.22)return 1;const t=age/.22;const u=t-1;return .4+.6*(1+2.15*u*u*u+1.15*u*u);}
   function styleScene(){if(state.scene===scene)return;state.scene=scene;scene.background=new THREE.Color(0xd6ece7);resizeQuality(resinit);}
-  function frame(dt){styleScene();updateGuide(isPaused()?0:Math.min(dt,.05));if(performance.now()-state.lastUI>100){state.lastUI=performance.now();syncUI();}}
+  function frame(dt){styleScene();fitLayout();updateGuide(isPaused()?0:Math.min(dt,.05));if(performance.now()-state.lastUI>100){state.lastUI=performance.now();syncUI();}}
   function shareScore(){const text=local(`펭귄, 고래 그리고 수박 · ${점수}점!`,`Penguin, Whale & Watermelon · ${점수} points!`);if(navigator.share){navigator.share({title:document.title,text}).catch(e=>{if(e.name!=='AbortError')toast(text);});}else if(navigator.clipboard?.writeText){navigator.clipboard.writeText(text).then(()=>toast(local('점수를 복사했어요.','Score copied.'))).catch(()=>toast(text));}else toast(text);}
   function beforeExit(n){cancelInput(true);if(n===8){state.returningUntil=performance.now()+1700;state.aim=0;}if(!native&&(n===13||n===14)){toast(local('브라우저에서는 게임 내 기록을 확인할 수 있어요.','Your scores are available in the game.'));return false;}if(!native&&n===15){shareScore();return false;}return true;}
   function initialize(){
@@ -24913,10 +24987,10 @@ window.PG = (() => {
     $('intro').removeAttribute('onclick');$('pg-home').addEventListener('click',e=>e.stopPropagation());
     ui.play.addEventListener('click',start);crew.forEach((el,i)=>el.addEventListener('click',()=>chooseCrew(i)));
     $('pg-settings').addEventListener('click',()=>{resumeAudio();showsetting();});$('pg-help').addEventListener('click',()=>{if(state.ready)showdesc();});$('pg-scores').addEventListener('click',()=>{if(state.ready)exit0(9);});$('pg-credits').addEventListener('click',showcredit);
-    if(typeof renderer!=='undefined'&&renderer){renderer.shadowMap.type=THREE.PCFSoftShadowMap;attachInput();resizeQuality(0);}
+    if(typeof renderer!=='undefined'&&renderer){renderer.shadowMap.type=THREE.PCFSoftShadowMap;attachInput();resizeQuality(resinit);attachLayout();}
     syncModal();syncUI();setInterval(syncUI,200);
   }
-  const api={createGuide,disposeGuide,frame,isPaused,resizeQuality,updatePickPointer,sanitizeGeometry,popScale,playSound,playMusic,beforeExit,cancelInput,toast,shareScore,view,setPoint,aim,chooseCrew,start,assetProgress,state};
+  const api={render,fitLayout,createGuide,disposeGuide,frame,isPaused,resizeQuality,updatePickPointer,sanitizeGeometry,popScale,playSound,playMusic,beforeExit,cancelInput,toast,shareScore,view,setPoint,aim,chooseCrew,start,assetProgress,state};
   // Install before any async loader callback can create the first scene.
   queueMicrotask(initialize);
   return api;
