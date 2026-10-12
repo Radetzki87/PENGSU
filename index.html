@@ -3395,6 +3395,13 @@ body.pg-short-hud #top .cell{padding:2px;gap:0;border-radius:10px!important}
 body.pg-short-hud #top .cell img{width:25px!important;height:25px!important}
 body.pg-short-hud #top .cell>div{font-size:11px!important;line-height:12px}
 @media(max-height:280px){body.pg-short-hud #pg-hint{visibility:hidden}}
+body.pg-compact-side #right0{font-size:clamp(16px,calc(var(--pg-w)/4),24px)!important;padding:18px 4px 3px!important}
+body.pg-compact-side #top{gap:8px!important}
+body.pg-compact-side #topp .cell0{flex-direction:column;gap:2px}
+body.pg-compact-side #topp img{width:28px;height:28px}
+body.pg-compact-side #pg-next img{width:30px;height:30px}
+body.pg-compact-side #pg-hint{font-size:10px;line-height:1.35;padding:4px 6px}
+body.pg-compact-short #pg-hint{visibility:hidden}
 
 </style>
 </head>
@@ -24880,30 +24887,48 @@ window.PG = (() => {
       const offsetX=vv&&Math.abs(vv.scale-1)<.01?vv.offsetLeft:0,offsetY=vv&&Math.abs(vv.scale-1)<.01?vv.offsetTop:0;
       const left=parseFloat(css.paddingLeft)||8,right=parseFloat(css.paddingRight)||8,top=parseFloat(css.paddingTop)||8,bottom=parseFloat(css.paddingBottom)||8;
       const aw=Math.max(1,fullW-left-right),ah=Math.max(1,fullH-top-bottom),ratio=64/120;
-      const rail=96,gap=12,header=108,dock=80;
+      // Shrink the side rails only when width limits the board; keep 44px controls.
+      const compactScale=Math.max(0,Math.min(1,(ah-284)/56));
+      const gap=12-4*compactScale,header=108,dock=80;
+      const rail=Math.max(96-32*compactScale,Math.min(96,(aw-ah*ratio)/2-gap));
+      const compact=rail<96;
       const portraitH=Math.min(Math.max(1,ah-header-dock),aw/ratio);
       const sideH=Math.min(ah,(aw-2*(rail+gap))/ratio);
       // Prefer the side HUD; separate entry/exit thresholds keep small resizes stable.
       const sideThreshold=state.layout?.side?0.72:0.80;
-      const side=sideH>=120&&ah>=204&&sideH>=portraitH*sideThreshold;
+      // Preserve the accepted side/bottom transition range while enlarging the side board.
+      const sideChoiceH=Math.min(ah,(aw-216)/ratio);
+      const side=sideChoiceH>=120&&ah>=204&&sideChoiceH>=portraitH*sideThreshold;
       const h=side?sideH:portraitH;
-      const w=h*ratio,groupH=side?Math.max(204,h):h+header+dock;
+      const w=h*ratio,groupH=side?Math.max(compact?284:204,h):h+header+dock;
       const x=offsetX+left+(aw-w)/2,y=offsetY+top+(ah-groupH)/2+(side?(groupH-h)/2:header);
       if(state.layout&&state.active)cancelInput(true);
       state.layout={x,y,w:Math.max(1,w),h:Math.max(1,h),side};layoutDirty=false;
       document.body.classList.toggle('pg-side-hud',side);
-      document.body.classList.toggle('pg-short-hud',side&&h<330);
+      document.body.classList.toggle('pg-compact-side',side&&compact);
+      document.body.classList.toggle('pg-short-hud',side&&!compact&&h<330);
+      document.body.classList.toggle('pg-compact-short',side&&compact&&groupH<316);
       const root=document.documentElement.style;
       root.setProperty('--pg-board-x',x.toFixed(2)+'px');root.setProperty('--pg-board-y',y.toFixed(2)+'px');
       root.setProperty('--pg-board-w',w.toFixed(2)+'px');root.setProperty('--pg-board-h',h.toFixed(2)+'px');
       if(side){
-        const hudY=y-(groupH-h)/2,l=x-rail-gap,r=x+w+gap,cell=Math.min(72,Math.max(44,(h-106)/4-9));
-        placeHud('left0',l,hudY,44,44);placeHud('center0',l+52,hudY,44,44);
-        placeHud('pg-next',l,hudY+58,rail,66);placeHud('topp',l,hudY+138,rail,58);
-        placeHud('pg-hint',l,hudY+210,rail,Math.min(64,Math.max(28,h-210))); 
-        placeHud('right0',r,hudY,rail,54);placeHud('fps',r,hudY+62,rail,20);
-        placeHud('top',r,hudY+100,rail,h<330?96:cell*4+30);
-        root.setProperty('--pg-cell-w',(h<330?44:rail)+'px');root.setProperty('--pg-cell-h',(h<330?44:cell)+'px');
+        const hudY=y-(groupH-h)/2,l=x-rail-gap,r=x+w+gap;
+        const cell=compact?Math.min(64,Math.max(44,(groupH-114)/4)):Math.min(72,Math.max(44,(h-106)/4-9));
+        if(compact){
+          const buttonX=l+(rail-44)/2;
+          placeHud('left0',buttonX,hudY,44,44);placeHud('center0',buttonX,hudY+52,44,44);
+          placeHud('pg-next',l,hudY+104,rail,58);placeHud('topp',l,hudY+170,rail,58);
+          placeHud('pg-hint',l,hudY+236,rail,Math.min(80,groupH-236));
+          placeHud('right0',r,hudY,rail,48);placeHud('fps',r,hudY+56,rail,20);
+          placeHud('top',r,hudY+84,rail,cell*4+24);
+        }else{
+          placeHud('left0',l,hudY,44,44);placeHud('center0',l+52,hudY,44,44);
+          placeHud('pg-next',l,hudY+58,rail,66);placeHud('topp',l,hudY+138,rail,58);
+          placeHud('pg-hint',l,hudY+210,rail,Math.min(64,Math.max(28,h-210)));
+          placeHud('right0',r,hudY,rail,54);placeHud('fps',r,hudY+62,rail,20);
+          placeHud('top',r,hudY+100,rail,h<330?96:cell*4+30);
+        }
+        root.setProperty('--pg-cell-w',(!compact&&h<330?44:rail)+'px');root.setProperty('--pg-cell-h',(!compact&&h<330?44:cell)+'px');
       }else{
         const t=y-header,hw=Math.max(w,Math.min(aw,360)),hx=x+(w-hw)/2;
         placeHud('left0',hx,t,44,44);placeHud('center0',hx+52,t,44,44);
