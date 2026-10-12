@@ -24883,7 +24883,9 @@ window.PG = (() => {
       const rail=96,gap=12,header=108,dock=80;
       const portraitH=Math.min(Math.max(1,ah-header-dock),aw/ratio);
       const sideH=Math.min(ah,(aw-2*(rail+gap))/ratio);
-      const side=sideH>=120&&ah>=204&&sideH>portraitH+16;
+      // Prefer the side HUD; separate entry/exit thresholds keep small resizes stable.
+      const sideThreshold=state.layout?.side?0.72:0.80;
+      const side=sideH>=120&&ah>=204&&sideH>=portraitH*sideThreshold;
       const h=side?sideH:portraitH;
       const w=h*ratio,groupH=side?Math.max(204,h):h+header+dock;
       const x=offsetX+left+(aw-w)/2,y=offsetY+top+(ah-groupH)/2+(side?(groupH-h)/2:header);
